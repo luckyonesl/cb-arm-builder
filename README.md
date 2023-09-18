@@ -3,6 +3,14 @@
 the intention of the repo is to build a codebeamer arm image.
 It's not intended to have phontomjs working
 
+## run codebeamer
+
+specify the version tag of [codebeamer](https://hub.docker.com/r/intland/codebeamer/tags)
+
+```bash
+docker-compose build --build-arg CB_VER=2.0.0.1
+```
+
 ## usefull snipets
 
 ```bash

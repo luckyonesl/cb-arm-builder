@@ -1,4 +1,5 @@
-FROM intland/codebeamer:21.09-SP13 as SRCBIN
+ARG CB_VER=21.09-SP13
+FROM intland/codebeamer:${CB_VER} as SRCBIN
 RUN dnf list installed|cut -f1 -d' '|grep -v "ImageMagick"|grep -v "LibRaw"|grep -v "libraqm" > /tmp/installed.txt
 RUN sed -i 's/\.x86_64//g' /tmp/installed.txt 
 
