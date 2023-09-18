@@ -1,0 +1,48 @@
+---
+version: '3.6'
+services:
+  codebeamer-db:
+    image: intland/mysql:debian-8.0.24-utf8mb4
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    environment:
+      - MYSQL_ROOT_PASSWORD=tocreate
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=codebeamer
+      - MYSQL_MAX_ALLOWED_PACKET=1024M
+      - MYSQL_INNODB_BUFFER_POOL_SIZE=1G
+      - MYSQL_INNODB_LOG_FILE_SIZE=256M
+      - MYSQL_INNODB_LOG_BUFFER_SIZE=256M
+    volumes:
+      - codebeamer-db-data:/var/lib/mysql
+
+  codebeamer-app:
+    build:
+      context: cb_base
+      #context: codebeamer-app
+    ports:
+      - 8080:8080
+    environment:
+      - CB_DOCKER_LOGGING=true
+      - DEBUG=true
+      - TZ=Europe/Berlin
+      - WAIT_HOSTS=codebeamer-db:3306
+      - WAIT_HOSTS_TIMEOUT=120
+      - CB_database_JDBC_Username=user
+      - CB_database_JDBC_Password=pass
+      - CB_database_JDBC_Driver=com.mysql.jdbc.Driver
+      - CB_database_JDBC_ConnectionURL=jdbc:mysql://codebeamer-db:3306/codebeamer?autoReconnect=true&zeroDateTimeBehavior=convertToNull&emulateLocators=true&characterEncoding=UTF-8&useSSL=false
+      - CB_database_JDBC_Timeout=120
+    volumes:
+      - codebeamer-app-repository-docs:/home/appuser/codebeamer/repository/docs
+      - codebeamer-app-repository-search:/home/appuser/codebeamer/repository/search
+      - codebeamer-app-repository-reports:/home/appuser/codebeamer/repository/reports
+      - codebeamer-app-logs:/home/appuser/codebeamer/logs
+
+volumes:
+  codebeamer-app-repository-docs:
+  codebeamer-app-repository-search:
+  codebeamer-app-repository-reports:
+  codebeamer-app-logs:
+  codebeamer-db-data:
