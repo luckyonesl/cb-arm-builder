@@ -11,8 +11,7 @@ RUN /tmp/install.sh /tmp/packages.txt
 COPY --chmod=0755 phantomjs /usr/bin/phantomjs
 COPY --chmod=0755 identify /usr/bin/identify
 RUN useradd --uid 1001 -m -d /home/appuser appuser
-
-COPY --chmod=0755 --from=SRCBIN /home/appuser/endpoint.sh  /home/appuser/healthcheck.sh  /home/appuser/redirect.jsp /home/appuser/run.sh /home/appuser/
+COPY --chmod=0755 --from=SRCBIN /home/appuser/entrypoint.sh  /home/appuser/healthcheck.sh  /home/appuser/redirect.jsp /home/appuser/run.sh /home/appuser/
 COPY --chmod=0755 --from=SRCBIN /wait /wait
 COPY --chmod=0755 --from=SRCBIN /usr/local/bin/sempl /usr/local/bin/sempl 
 COPY --from=SRCBIN /home/appuser/codebeamer /home/appuser/codebeamer
@@ -27,5 +26,5 @@ ENV catalina.base=/home/appuser/codebeamer/tomcat
 ENV SAFEPOINT_LOGGING_ENABLED=false
 user appuser
 
-ENTRYPOINT [ "/home/appuser/endpoint.sh" ]
+ENTRYPOINT [ "/home/appuser/entrypoint.sh" ]
 CMD [ "/home/appuser/run.sh" ]

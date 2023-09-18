@@ -8,7 +8,7 @@ It's not intended to have phontomjs working
 specify the version tag of [codebeamer](https://hub.docker.com/r/intland/codebeamer/tags)
 
 ```bash
-docker-compose build --build-arg CB_VER=21.09-SP14
+docker-compose build --build-arg CB_VER=22.10-SP8
 docker-compose up -d
 docker-compose logs -f
 ```
