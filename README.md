@@ -13,6 +13,15 @@ docker-compose up -d
 docker-compose logs -f
 ```
 
+## buildx
+
+with the following command you can build for multiple platforms
+
+```bash
+cd cb_base
+docker buildx build -tag codebeamer:22.10-SP8 --platform linux/amd64,linux/arm64 .
+```
+
 ## usefull snipets
 
 ```bash
